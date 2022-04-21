@@ -1,5 +1,5 @@
 import React from "react";
-import { useStore } from "zustand";
+import { useStore } from "./useStore";
 function Form() {
   const title = useStore((state) => state.title);
   const handleChange = useStore((state) => state.handleChange);

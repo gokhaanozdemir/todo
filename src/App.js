@@ -1,12 +1,12 @@
 import { useStore } from "./useStore";
+import "./App.css";
 function App() {
-  const text = useStore(state => state.text);
-  
+  const text = useStore((state) => state.text);
+  const handleChange = useStore((state) => state.handleChange);
   return (
-    <div className="form">
-
-      <input type="text" 
-      value={text}
+    <div>
+      <input type="text" value={text} 
+      onChange={handleChange}
       />
       <button>Ekle</button>
     </div>

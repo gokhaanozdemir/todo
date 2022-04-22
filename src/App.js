@@ -1,11 +1,15 @@
+import TodoList from './components/TodoList';
+import Form from './components/Form';
 
-import Form from "./components/Form";
-import "./App.css";
+import './index.css';
+import TodoItem from './components/TodoItem';
+
 function App() {
-  
   return (
     <div>
-     <Form/>
+      <Form />
+      <TodoList />
+      <TodoItem/>
     </div>
   );
 }

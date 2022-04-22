@@ -1,14 +1,46 @@
-import create from "zustand";
+import create from 'zustand';
 
-export const useStore = create((set) => ({
-  title: "",
-  comment: null,
-  assignee: null,
-  status: null,
+export const useStore = create((set, get) => ({
+  formState: {
+    title: '',
+    comment: null,
+    assignee: null,
+    status: null
+  },
+
+  addCreate: null,
   todos: [],
   editTodoİd: null,
-  handleChange: (e) => set((state) => ({ title: e.target.value })),
-  setComment: (e) => set((state) => ({ comment: e.target.value })),
-  setAssignee: (e) => set((state) => ({ assignee: e.target.value })),
-  setStatus: (e) => set((state) => ({ status: e.target.value })),
+
+  setTitle: e =>
+    set(state => ({
+      formState: {
+        ...state.formState,
+        title: e.target.value
+      }
+    })),
+
+  setComment: e =>
+    set(state => ({
+      formState: {
+        ...state.formState,
+        comment: e.target.value
+      }
+    })),
+
+  setAssignee: e =>
+    set(state => ({
+      formState: {
+        ...state.formState,
+        assignee: e.target.value
+      }
+    })),
+  setStatus: e =>
+    set(state => ({
+      formState: {
+        ...state.formState,
+        status: e.target.value
+      }
+    })),
+  addTodo: formState => set(state => ({ todos: [...get().todos, formState] }))
 }));

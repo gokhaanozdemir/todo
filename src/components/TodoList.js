@@ -4,6 +4,7 @@ import { useStore } from '../useStore';
 
 function TodoList() {
   const todos = useStore(state => state.todos);
+  console.log(todos)
   return (
     <div>
       {todos.map(todo => {

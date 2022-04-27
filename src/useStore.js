@@ -3,7 +3,7 @@ import create from 'zustand';
 export const useStore = create((set, get) => ({
   formState: {
     title: '',
-    comment: null,
+    comment: '',
     assignee: null,
     status: null
   },
@@ -42,5 +42,5 @@ export const useStore = create((set, get) => ({
         status: e.target.value
       }
     })),
-  addTodo: formState => set(state => ({ todos: [...get().todos, formState] }))
+  addTodo: () => set(state => ({ todos: [...get().todos, state.formState] }))
 }));

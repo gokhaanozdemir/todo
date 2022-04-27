@@ -4,8 +4,8 @@ export const useStore = create((set, get) => ({
   formState: {
     title: '',
     comment: '',
-    assignee: null,
-    status: null
+    assignee: '',
+    status: ''
   },
 
   addCreate: null,
@@ -42,5 +42,14 @@ export const useStore = create((set, get) => ({
         status: e.target.value
       }
     })),
-  addTodo: () => set(state => ({ todos: [...get().todos, state.formState] }))
+  addTodo: () =>
+    set(state => ({
+      todos: [...get().todos, state.formState],
+      formState: {
+        title: '',
+        comment: '',
+        assignee: '',
+        status: ''
+      }
+    }))
 }));

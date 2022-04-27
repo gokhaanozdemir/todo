@@ -4,11 +4,13 @@ function TodoItem(props) {
   const { title, comment, assignee, status } = props;
 
   return (
-    <div>
-      <h1>{title}</h1>
-      <h1>{comment}</h1>
-      <h1>{status}</h1>
-      <h1>{assignee}</h1>
+    <div className='flex justify-center mt-4'>
+      <ul>
+        <li className=' w-1/2 border-1 border-Gray-600'>{title}</li>
+        <li>{comment}</li>
+        <li>{assignee}</li>
+        <li>{status} </li>
+      </ul>
     </div>
   );
 }

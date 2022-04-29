@@ -20,11 +20,10 @@ export const useStore = create((set, get) => ({
       isFormOpen: true
     })),
 
-    deleteTodo: (id) => 
+  deleteTodo: id =>
     set(state => ({
-      todos: get().todos.filter((todo) => todo.id !== id)
+      todos: get().todos.filter(todo => todo.id !== id)
     })),
-    
 
   setTitle: e =>
     set(state => ({

@@ -7,7 +7,7 @@ import TodoItem from './components/TodoItem';
 function App() {
   return (
     <div>
-      <Modal/>
+      <Modal />
       <Form />
       <TodoList />
       <TodoItem />

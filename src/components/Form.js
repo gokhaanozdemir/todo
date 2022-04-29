@@ -12,7 +12,7 @@ function Form() {
   const setStatus = useStore(state => state.setStatus);
   const todos = useStore(state => state.todos);
   const addTodo = useStore(state => state.addTodo);
-  
+
   return (
     <div className=" flex flex-col items-center  mt-16 ">
       <h1 className="text-3xl font-semibold font-sans text-[#dc2626] mb-8">Todos</h1>

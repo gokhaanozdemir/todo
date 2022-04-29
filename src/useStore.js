@@ -42,14 +42,20 @@ export const useStore = create((set, get) => ({
         status: e.target.value
       }
     })),
-  addTodo: () =>
+
+  addTodo: () => {
+  const todo = {
+    ...get().formState,
+    id: Math.random(),
+    addCreate: new Date()
+  }
     set(state => ({
-      todos: [...get().todos, state.formState],
+      todos: [...get().todos,todo],
       formState: {
         title: '',
         comment: '',
         assignee: '',
         status: ''
       }
-    }))
+    }))}
 }));

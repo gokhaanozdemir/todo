@@ -2,8 +2,8 @@ import React from 'react';
 import { useStore } from '../useStore';
 
 function TodoItem(props) {
-  const { title, comment, assignee, status } = props;
-  const deleteTodo = useStore(state => state.todos(deleteTodo));
+  const { title, comment, assignee, status, id } = props;
+  const deleteTodo = useStore(state => state.deleteTodo);
 
   return (
     <div className="flex justify-center mt-4">
@@ -13,8 +13,12 @@ function TodoItem(props) {
         <li>{assignee}</li>
         <li>{status} </li>
       </ul>
-      <button onClick={deleteTodo}></button>
+
+      <button className="border-2 border-Blue-900" onClick={() => deleteTodo(id)}>
+        Delete
+      </button>
     </div>
   );
 }
+
 export default TodoItem;

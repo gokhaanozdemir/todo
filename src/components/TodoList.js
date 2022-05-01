@@ -4,12 +4,18 @@ import { useStore } from '../useStore';
 
 function TodoList() {
   const todos = useStore(state => state.todos);
-  console.log(todos);
+  const toggleModal = useStore(state => state.toggleModal);
+
   return (
     <div>
-      {todos.map(todo => {
-        return <TodoItem {...todo} key={todo.id} />;
-      })}
+      {todos.length > 0 ? (
+        todos.map(todo => {
+          return <TodoItem {...todo} key={todo.id} />;
+        })
+      ) : (
+        <span>No todos yet</span>
+      )}
+      <button onClick={() => toggleModal(true)}>Todo Ekle</button>
     </div>
   );
 }

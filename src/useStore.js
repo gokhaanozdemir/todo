@@ -4,11 +4,17 @@ export const useStore = create((set, get) => ({
   formState: {
     title: '',
     comment: '',
-    assignee: '',
-    status: ''
+    assignee: ''
   },
   todos: [],
   editTodoİd: null,
+  isModalOpen: false,
+
+  toggleModal: value => {
+    set(() => ({
+      isModalOpen: value
+    }));
+  },
 
   setTitle: e =>
     set(state => ({
@@ -46,7 +52,8 @@ export const useStore = create((set, get) => ({
     const todo = {
       ...get().formState,
       id: Math.random(),
-      createdAt: new Date()
+      createdAt: new Date(),
+      status: 'new'
     };
 
     set(() => ({
@@ -56,7 +63,8 @@ export const useStore = create((set, get) => ({
         comment: '',
         assignee: '',
         status: ''
-      }
+      },
+      isModalOpen: false
     }));
   },
 

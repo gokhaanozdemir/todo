@@ -7,7 +7,7 @@ function TodoList() {
   const toggleModal = useStore(state => state.toggleModal);
 
   return (
-    <div>
+    <div className='flex justify-center mt-10'>
       {todos.length > 0 ? (
         todos.map(todo => {
           return <TodoItem {...todo} key={todo.id} />;

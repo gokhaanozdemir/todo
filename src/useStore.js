@@ -1,5 +1,7 @@
 import create from 'zustand';
 
+import { TodoStatus } from './constants';
+
 export const useStore = create((set, get) => ({
   formState: {
     title: '',
@@ -7,7 +9,7 @@ export const useStore = create((set, get) => ({
     assignee: ''
   },
   todos: [],
-  editTodoİd: null,
+  editTodoId: null,
   isModalOpen: false,
 
   toggleModal: value => {
@@ -40,36 +42,63 @@ export const useStore = create((set, get) => ({
       }
     })),
 
-  setStatus: e =>
+  addTodo: todoData => {
+    if (todoData.id) {
+      set(state => ({
+        todos: state.todos.map(todo => {
+          if (todo.id !== todoData.id) {
+            return todo;
+          }
+          return {
+            ...todo,
+            ...todoData
+          };
+        }),
+        isModalOpen: false
+      }));
+    } else {
+      const todo = {
+        ...get().formState,
+        ...todoData,
+        id: Math.random(),
+        createdAt: new Date(),
+        status: TodoStatus.New.value
+      };
+      set(() => ({
+        todos: [...get().todos, todo],
+        formState: {
+          title: '',
+          comment: '',
+          assignee: '',
+          status: ''
+        },
+        isModalOpen: false
+      }));
+    }
+  },
+
+  editTodo: id => {
     set(state => ({
-      formState: {
-        ...state.formState,
-        status: e.target.value
-      }
-    })),
-
-  addTodo: () => {
-    const todo = {
-      ...get().formState,
-      id: Math.random(),
-      createdAt: new Date(),
-      status: 'new'
-    };
-
-    set(() => ({
-      todos: [...get().todos, todo],
-      formState: {
-        title: '',
-        comment: '',
-        assignee: '',
-        status: ''
-      },
-      isModalOpen: false
+      editTodoId: id,
+      isModalOpen: true
     }));
   },
 
-  deleteTodo: id =>
+  deleteTodo: id => {
     set(state => ({
       todos: state.todos.filter(todo => todo.id !== id)
-    }))
+    }));
+  },
+
+  setStatus: (id, value) => {
+    set(state => ({
+      todos: state.todos.map(todo => {
+        if (todo.id !== id) {
+          return todo;
+        }
+
+        return { ...todo, status: value };
+      })
+    }));
+  }
 }));

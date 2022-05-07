@@ -49,7 +49,7 @@ function Form() {
         </select>
 
         <button
-          className="w-12 h-8 rounded-sm text-base mt-3 bg-Blue-600 hover:bg-Teal-500 border-Blue-600  text-white"
+          className="w-12 h-8 rounded-sm text-base mt-3 bg-Blue-600 hover:bg-Rose-500 border-Blue-600  text-white"
           value={todos}
           onClick={addTodo}
         >

@@ -15,22 +15,24 @@ function Form() {
   const addTodo = useStore(state => state.addTodo);
   const toggleModal = useStore(state => state.toggleModal);
   const isModalOpen = useStore(state => state.isModalOpen);
-
+  const upDateTodo = useStore(state => state.upDateTodo);
   return (
     <Modal isOpen={isModalOpen} onRequestClose={() => toggleModal(false)}>
       <div className=" flex flex-col items-center  mt-16 ">
-        <h1 className="text-3xl font-semibold font-sans text-[#dc2626] mb-8">Todos</h1>
+        <h1 className="text-3xl font-semibold font-sans text-[#dc2626] mb-8">
+          Yapılacaklar Listesi
+        </h1>
         <input
           className="w-80  border-2 border-Blue-500 focus:border-Teal-600 text-midnight text-[#18181b] font-serif text-base indent-1  placeholder:text-[#9ca3af] placeholder:text-center italic outline-none"
           type="text"
-          placeholder="What needs to be done ? "
+          placeholder="Ne yapılması gerekiyor ? "
           required
           value={title}
           onChange={setTitle}
         />
         <textarea
           className="w-80  border-2 border-Blue-500 focus:border-Teal-600 h-7 mt-3 bg-blue text-midnight font-serif text-base indent-1  placeholder:text-[#9ca3af] placeholder:text-center italic outline-none"
-          placeholder="Add comment ?"
+          placeholder="Yorum ekle ?"
           required
           value={comment}
           onChange={setComment}
@@ -48,6 +50,7 @@ function Form() {
           <option value="Fatma">Fatma</option>
         </select>
 
+        <button onClick={() => upDateTodo()}>Kaydet</button>
         <button
           className="w-12 h-8 rounded-sm text-base mt-3 bg-Blue-600 hover:bg-Rose-500 border-Blue-600  text-white"
           value={todos}

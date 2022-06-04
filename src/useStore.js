@@ -9,7 +9,6 @@ export const useStore = create((set, get) => ({
     assignee: ''
   },
   todos: [],
-  editTodoId: null,
   isModalOpen: false,
 
   toggleModal: value => {
@@ -42,45 +41,22 @@ export const useStore = create((set, get) => ({
       }
     })),
 
-  addTodo: todoData => {
-    if (todoData.id) {
-      set(state => ({
-        todos: state.todos.map(todo => {
-          if (todo.id !== todoData.id) {
-            return todo;
-          }
-          return {
-            ...todo,
-            ...todoData
-          };
-        }),
-        isModalOpen: false
-      }));
-    } else {
-      const todo = {
-        ...get().formState,
-        ...todoData,
-        id: Math.random(),
-        createdAt: new Date(),
-        status: TodoStatus.New.value
-      };
-      set(() => ({
-        todos: [...get().todos, todo],
-        formState: {
-          title: '',
-          comment: '',
-          assignee: '',
-          status: ''
-        },
-        isModalOpen: false
-      }));
-    }
-  },
-
-  editTodo: id => {
-    set(state => ({
-      editTodoId: id,
-      isModalOpen: true
+  addTodo: () => {
+    const todo = {
+      ...get().formState,
+      id: Math.random(),
+      createdAt: new Date(),
+      status: TodoStatus.New.value
+    };
+    set(() => ({
+      todos: [...get().todos, todo],
+      formState: {
+        title: '',
+        comment: '',
+        assignee: '',
+        status: ''
+      },
+      isModalOpen: false
     }));
   },
 
@@ -90,6 +66,34 @@ export const useStore = create((set, get) => ({
     }));
   },
 
+  handleClickEdit: todoId => {
+    const todo = get().todos.find(todo => todo.id === todoId);
+    set(state => ({
+      isModalOpen: true,
+      formState: {
+        ...state.formState,
+        title: todo.title,
+        comment: todo.comment,
+        assignee: todo.assignee,
+        status: todo.status
+      }
+    }));
+  },
+
+  upDateTodo: todoId => {
+    set(state => ({
+      isModalOpen: false,
+      todos: state.todos.map(todo => {
+        if (todo.id === todoId) {
+          return todo;
+        }
+        return {
+          ...todo,
+          ...state.formState
+        };
+      })
+    }));
+  },
   setStatus: (id, value) => {
     set(state => ({
       todos: state.todos.map(todo => {

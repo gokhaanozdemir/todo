@@ -10,6 +10,7 @@ export const useStore = create((set, get) => ({
   },
   todos: [],
   isModalOpen: false,
+  isEdit: false,
 
   toggleModal: value => {
     set(() => ({
@@ -65,11 +66,11 @@ export const useStore = create((set, get) => ({
       todos: state.todos.filter(todo => todo.id !== id)
     }));
   },
-
   handleClickEdit: todoId => {
     const todo = get().todos.find(todo => todo.id === todoId);
     set(state => ({
       isModalOpen: true,
+      isEdit: true,
       formState: {
         ...state.formState,
         title: todo.title,
@@ -83,6 +84,7 @@ export const useStore = create((set, get) => ({
   upDateTodo: todoId => {
     set(state => ({
       isModalOpen: false,
+      isEdit: false,
       todos: state.todos.map(todo => {
         if (todo.id === todoId) {
           return todo;

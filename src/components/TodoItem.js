@@ -34,6 +34,7 @@ function TodoItem(props) {
       >
         Sil
       </button>
+
       <button
         className="w-16 h-8 rounded-sm text-base bg-Blue-600  hover:bg-Blue-400 border-Blue-600  text-white"
         onClick={() => handleClickEdit(id)}

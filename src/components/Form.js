@@ -16,6 +16,8 @@ function Form() {
   const toggleModal = useStore(state => state.toggleModal);
   const isModalOpen = useStore(state => state.isModalOpen);
   const upDateTodo = useStore(state => state.upDateTodo);
+  const isEdit = useStore(state => state.isEdit)
+  
   return (
     <Modal isOpen={isModalOpen} onRequestClose={() => toggleModal(false)}>
       <div className=" flex flex-col items-center  mt-16 ">
@@ -49,15 +51,16 @@ function Form() {
           <option value="Elif">Elif</option>
           <option value="Fatma">Fatma</option>
         </select>
-
-        <button onClick={() => upDateTodo()}>Kaydet</button>
-        <button
+        {isEdit 
+       ? <button onClick={() => upDateTodo()}>Kaydet</button>
+       : <button
           className="w-12 h-8 rounded-sm text-base mt-3 bg-Blue-600 hover:bg-Rose-500 border-Blue-600  text-white"
           value={todos}
           onClick={addTodo}
         >
           Ekle
         </button>
+}
       </div>
     </Modal>
   );

@@ -11,6 +11,7 @@ export const useStore = create(
         assignee: ''
       },
       todos: [],
+      searchQuarey: '',
       isModalOpen: false,
       isEdit: false,
 
@@ -43,6 +44,12 @@ export const useStore = create(
             assignee: e.target.value
           }
         })),
+
+      setsearchQuarey: e => {
+        set(state => ({
+          searchQuarey: e.target.value
+        }));
+      },
 
       addTodo: () => {
         const todo = {
@@ -98,6 +105,7 @@ export const useStore = create(
           })
         }));
       },
+
       setStatus: (id, value) => {
         set(state => ({
           todos: state.todos.map(todo => {

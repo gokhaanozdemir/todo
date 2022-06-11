@@ -61,11 +61,24 @@ module.exports = {
       Red: {
         400: '#f87171',
         600: '#dc2626'
+      },
+      Orange: {
+        500: '#ef4444'
+      },
+      Violet: {
+        500: '#8b5cf6'
       }
     },
     extend: {
       backgroundImage: {
-        search: "url('search-icon-png-2.png')"
+        search: "url('indir.jpeg')"
+      },
+      backgroundSize: {
+        auto: 'auto',
+        cover: 'cover',
+        contain: 'contain',
+        '50%': '50%',
+        4: '2rem'
       }
     }
   },

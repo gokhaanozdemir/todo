@@ -11,6 +11,7 @@ function TodoList() {
   return (
     <div className="flex items-center flex-col ">
       <input
+        className=" outline-none  border-2 border-Orange-500 indent-8 bg-no-repeat bg-4 bg-left bg-search  mt-8 w-1/2 h-8 italic placeholder:indent-7 placeholder:text-[#9ca3af]"
         value={searchQuarey}
         onChange={setsearchQuarey}
         type="text"
@@ -32,7 +33,7 @@ function TodoList() {
       )}
       <div className="relative left-96 bottom-10">
         <button
-          className=" w-14 h-12 rounded-sm text-base bg-Teal-600  hover:bg-Teal-400 border-Teal-600  text-white "
+          className="w-14 h-12 md:mr-20 rounded-sm text-base bg-Teal-600  hover:bg-Teal-400 border-Teal-600  text-white "
           onClick={() => toggleModal(true)}
         >
           Todo ekle

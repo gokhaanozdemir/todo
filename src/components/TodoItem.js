@@ -10,7 +10,7 @@ function TodoItem(props) {
   const handleClickEdit = useStore(state => state.handleClickEdit);
 
   return (
-    <div className=" mt-10 w-1/2  p-1.5 justify-around  flex items-center border-2 border-Red-600">
+    <div className=" mt-10 w-1/2  p-1.5 justify-around  flex items-center border-2 border-Violet-500">
       <div className="flex flex-col ">
         <div className="font-bold  text-base">{title}</div>
         <div className="mt-4 ">{comment}</div>

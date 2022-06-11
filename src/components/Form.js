@@ -19,9 +19,13 @@ function Form() {
   const isEdit = useStore(state => state.isEdit);
 
   return (
-    <Modal isOpen={isModalOpen} onRequestClose={() => toggleModal(false)}>
-      <div className=" flex flex-col items-center  mt-16 ">
-        <h1 className="text-3xl font-semibold font-sans text-[#dc2626] mb-8">
+    <Modal
+      className="outline-none w-full h-full bg-Orange-500"
+      isOpen={isModalOpen}
+      onRequestClose={() => toggleModal(false)}
+    >
+      <div className=" flex flex-col items-center   ">
+        <h1 className="mt-24 text-3xl font-semibold font-sans text-[#fff] mb-8">
           Yapılacaklar Listesi
         </h1>
         <input

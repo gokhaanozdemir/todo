@@ -33,7 +33,7 @@ function TodoList() {
       )}
       <div className="relative left-96 bottom-10">
         <button
-          className="w-14 h-12 md:mr-20 rounded-sm text-base bg-Teal-600  hover:bg-Teal-400 border-Teal-600  text-white "
+          className="w-14 h-12 lg:relative right-96 bottom-96 rounded-sm text-base bg-Teal-600  hover:bg-Teal-400 border-Teal-600  text-white "
           onClick={() => toggleModal(true)}
         >
           Todo ekle

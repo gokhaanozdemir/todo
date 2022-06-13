@@ -7,7 +7,7 @@ function TodoList() {
   const toggleModal = useStore(state => state.toggleModal);
   const setsearchQuarey = useStore(state => state.setsearchQuarey);
   const searchQuarey = useStore(state => state.searchQuarey);
-
+  const fieldsToSearch = ["title"]
   return (
     <div className="flex items-center flex-col ">
       <input
@@ -20,7 +20,7 @@ function TodoList() {
       {todos.length > 0 ? (
         todos
           .filter(
-            item => item.title.toLowerCase().indexOf(searchQuarey.toLowerCase()) > -1
+            item => item[fieldsToSearch].toLowerCase().indexOf(searchQuarey.toLowerCase()) > -1
           )
 
           .map(todo => {

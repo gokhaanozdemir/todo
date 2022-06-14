@@ -11,7 +11,7 @@ export const useStore = create(
         assignee: ''
       },
       todos: [],
-      searchQuarey: '',
+      searchQuery: '',
       isModalOpen: false,
       isEdit: false,
 
@@ -45,9 +45,9 @@ export const useStore = create(
           }
         })),
 
-      setsearchQuarey: e => {
+      setsearchQuery: e => {
         set(state => ({
-          searchQuarey: e.target.value
+          searchQuery: e.target.value
         }));
       },
 

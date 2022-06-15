@@ -17,14 +17,23 @@ function Form() {
   const isModalOpen = useStore(state => state.isModalOpen);
   const upDateTodo = useStore(state => state.upDateTodo);
   const isEdit = useStore(state => state.isEdit);
+  const isClosedForm = useStore(state => state.isClosedForm);
 
   return (
     <Modal
-      className="outline-none w-full h-full bg-Orange-500"
+      className="outline-none w-full h-full bg-Slate-400"
       isOpen={isModalOpen}
       onRequestClose={() => toggleModal(false)}
     >
-      <div className=" flex flex-col items-center   ">
+      <div className=" flex justify-end mr-2 ">
+        <button
+          onClick={isClosedForm}
+          className=" w-8 text-2xl font-bold text-[#fff] shadow-md shadow-Red-600 rounded-2xl bg-Orange-500"
+        >
+          X
+        </button>
+      </div>
+      <div className="flex flex-col items-center">
         <h1 className="mt-24 text-3xl font-semibold font-sans text-[#fff] mb-8">
           Yapılacaklar Listesi
         </h1>

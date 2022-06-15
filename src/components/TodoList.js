@@ -9,35 +9,38 @@ function TodoList(props) {
   const searchQuery = useStore(state => state.searchQuery);
 
   return (
-    <div className="flex items-center flex-col ">
-      {todos.length > 0 ? (
-        <>
-          <Searchbox />
-          {todos
-            .filter(
-              item =>
-                item[fieldsToSearch].toLowerCase().indexOf(searchQuery.toLowerCase()) >
-                -1
-            )
-            .map(todo => {
-              return <TodoItem {...todo} key={todo.id} />;
-            })}
-        </>
-      ) : (
-        <span className="flex justify-center mt-72 text-base text-[#dc2626]">
-          Henüz yapılacak iş yok!
-        </span>
-      )}
-
-      <div className="relative left-96 bottom-10">
+    <>
+      <div className="flex flex-col items-center">
+        {todos.length > 0 ? (
+          <>
+            <Searchbox />
+            {todos
+              .filter(todo => {
+                return fieldsToSearch.some(field => {
+                  return (
+                    todo[field].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1
+                  );
+                });
+              })
+              .map(todo => {
+                return <TodoItem {...todo} key={todo.id} />;
+              })}
+          </>
+        ) : (
+          <span className="flex justify-center mt-72 text-base text-[#dc2626]">
+            Henüz yapılacak iş yok!
+          </span>
+        )}
+      </div>
+      <div className=" max-h-10 flex justify-end  items-center  mr-12  ">
         <button
-          className="w-14 h-12 lg:relative right-96 bottom-96 rounded-sm text-base bg-Teal-600  hover:bg-Teal-400 border-Teal-600  text-white "
+          className=" w-12 h-12  rounded bg-Cyan-500 hover:bg-Sky-700 text-base text-white shadow-Teal-500"
           onClick={() => toggleModal(true)}
         >
           Todo ekle
         </button>
       </div>
-    </div>
+    </>
   );
 }
 

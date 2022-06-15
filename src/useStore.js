@@ -21,6 +21,12 @@ export const useStore = create(
         }));
       },
 
+      isClosedForm: () => {
+        set(state => ({
+          isModalOpen: false
+        }));
+      },
+
       setTitle: e =>
         set(state => ({
           formState: {
@@ -45,7 +51,7 @@ export const useStore = create(
           }
         })),
 
-      setsearchQuery: e => {
+      setSearchQuery: e => {
         set(state => ({
           searchQuery: e.target.value
         }));

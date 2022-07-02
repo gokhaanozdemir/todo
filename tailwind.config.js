@@ -82,7 +82,7 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        search: "url('indir.jpeg')"
+        search: `url('/public/magnifying-glass.svg')`
       },
       backgroundSize: {
         auto: 'auto',

@@ -1,12 +1,16 @@
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import TodoItem from './TodoItem';
 import { useStore } from '../useStore';
 import Searchbox from './Searchbox';
-function TodoList(props) {
+
+function TodoList() {
   const todos = useStore(state => state.todos);
   const toggleModal = useStore(state => state.toggleModal);
   const fieldsToSearch = ['title'];
-  const searchQuery = useStore(state => state.searchQuery);
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get('q') || "";
 
   return (
     <>

@@ -22,7 +22,11 @@ function TodoItem(props) {
           onChange={e => setStatus(id, e.target.value)}
         >
           {Object.values(TodoStatus).map(item => {
-            return <option value={item.value}>{item.label}</option>;
+            return (
+              <option key={item.value} value={item.value}>
+                {item.label}
+              </option>
+            );
           })}
         </select>
         <div className="mt-4 text-center">{assignee}</div>

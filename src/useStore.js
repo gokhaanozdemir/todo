@@ -1,6 +1,7 @@
 import create from 'zustand';
-import { TodoStatus } from './constants';
 import { persist } from 'zustand/middleware';
+
+import { TodoStatus } from './constants';
 
 export const useStore = create(
   persist(
@@ -11,19 +12,12 @@ export const useStore = create(
         assignee: ''
       },
       todos: [],
-      searchQuery: '',
       isModalOpen: false,
-      isEdit: false,
+      editTodoId: null,
 
       toggleModal: value => {
         set(() => ({
           isModalOpen: value
-        }));
-      },
-
-      isClosedForm: () => {
-        set(state => ({
-          isModalOpen: false
         }));
       },
 
@@ -51,12 +45,6 @@ export const useStore = create(
           }
         })),
 
-      setSearchQuery: e => {
-        set(state => ({
-          searchQuery: e.target.value
-        }));
-      },
-
       addTodo: () => {
         const todo = {
           ...get().formState,
@@ -64,6 +52,7 @@ export const useStore = create(
           createdAt: new Date(),
           status: TodoStatus.New.value
         };
+
         set(() => ({
           todos: [...get().todos, todo],
           formState: {
@@ -81,11 +70,13 @@ export const useStore = create(
           todos: state.todos.filter(todo => todo.id !== id)
         }));
       },
+
       handleClickEdit: todoId => {
         const todo = get().todos.find(todo => todo.id === todoId);
+
         set(state => ({
           isModalOpen: true,
-          isEdit: true,
+          editTodoId: todoId,
           formState: {
             ...state.formState,
             title: todo.title,
@@ -96,19 +87,26 @@ export const useStore = create(
         }));
       },
 
-      upDateTodo: todoId => {
+      updateTodo: () => {
         set(state => ({
           isModalOpen: false,
-          isEdit: false,
+          editTodoId: null,
           todos: state.todos.map(todo => {
-            if (todo.id === todoId) {
+            if (todo.id !== get().editTodoId) {
               return todo;
             }
+
             return {
               ...todo,
               ...state.formState
             };
-          })
+          }),
+          formState: {
+            title: '',
+            comment: '',
+            assignee: '',
+            status: ''
+          }
         }));
       },
 

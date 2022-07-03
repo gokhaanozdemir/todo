@@ -12,3 +12,18 @@ export const TodoStatus = {
     label: 'Done'
   }
 };
+
+export const TodoAssigneeList = [
+  {
+    id: 1,
+    name: 'Gökhan'
+  },
+  {
+    id: 2,
+    name: 'Elif'
+  },
+  {
+    id: 3,
+    name: 'Ayşe'
+  }
+];

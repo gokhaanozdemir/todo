@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { InputAdornment, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 function Searchbox() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,13 +24,21 @@ function Searchbox() {
   }
 
   return (
-    <input
-      className="outline-none border-2 border-Gray-500 indent-9 bg-no-repeat bg-4 bg-left bg-search mt-8 w-1/2 h-8 placeholder:indent-9 placeholder:text-[#9ca3af]"
+    <TextField
+      fullWidth
       value={searchParams.get('q') || ''}
-      onChange={handleChange}
-      type="text"
-      placeholder="İsim ara..."
+      onInput={handleChange}
+      placeholder="Search..."
+      size="small"
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <SearchIcon />
+          </InputAdornment>
+        )
+      }}
     />
   );
 }
+
 export default Searchbox;

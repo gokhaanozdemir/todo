@@ -1,51 +1,56 @@
 import React from 'react';
+import { Button, Divider, Stack, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 import { TodoStatus } from '../constants';
 import { useStore } from '../useStore';
+import { Box } from '@mui/system';
 
-function TodoItem(props) {
-  const { title, comment, assignee, status, id } = props;
+function TodoItem({ title, comment, assignee, status, id }) {
   const deleteTodo = useStore(state => state.deleteTodo);
-  const setStatus = useStore(state => state.setStatus);
   const handleClickEdit = useStore(state => state.handleClickEdit);
 
   return (
-    <div className=" mt-10 w-1/2  lg:w-48  p-1.5 justify-around  flex items-center border-2 border-Violet-500">
-      <div className="flex flex-col ">
-        <div className="font-bold  text-base">{title}</div>
-        <div className="mt-4 ">{comment}</div>
-      </div>
-      <div className="flex flex-col">
-        <select
-          className="w-20 italic text-center"
-          value={status}
-          onChange={e => setStatus(id, e.target.value)}
-        >
-          {Object.values(TodoStatus).map(item => {
-            return (
-              <option key={item.value} value={item.value}>
-                {item.label}
-              </option>
-            );
-          })}
-        </select>
-        <div className="mt-4 text-center">{assignee}</div>
-      </div>
-
-      <button
-        className="w-8 h-8 rounded-sm text-base bg-Red-600   text-[#ffffff] border border-Red-600 italic"
-        onClick={() => deleteTodo(id)}
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          padding: 2
+        }}
       >
-        Sil
-      </button>
+        <Stack>
+          <Typography variant="h5">{title}</Typography>
+          <Typography variant="subtitle1">{comment}</Typography>
+          <Typography variant="caption">
+            {Object.values(TodoStatus).find(s => s.value === status).label}
+          </Typography>
+        </Stack>
 
-      <button
-        className="w-16 h-8 rounded-sm text-base bg-Blue-600  hover:bg-Blue-400 border-Blue-600  text-white"
-        onClick={() => handleClickEdit(id)}
-      >
-        Düzenle
-      </button>
-    </div>
+        <Stack>
+          <Button
+            variant="contained"
+            color="info"
+            startIcon={<EditIcon />}
+            onClick={() => handleClickEdit(id)}
+            sx={{ marginBottom: 0.5 }}
+          >
+            Duzenle
+          </Button>
+          <Button
+            variant="contained"
+            startIcon={<DeleteIcon />}
+            onClick={() => deleteTodo(id)}
+            color="error"
+          >
+            Sil
+          </Button>
+        </Stack>
+      </Box>
+      <Divider sx={{ height: '2px', width: '100%' }} />
+    </>
   );
 }
 

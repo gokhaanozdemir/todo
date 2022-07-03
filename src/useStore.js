@@ -21,29 +21,25 @@ export const useStore = create(
         }));
       },
 
-      setTitle: e =>
+      setFormState: (e, field) => {
         set(state => ({
           formState: {
             ...state.formState,
-            title: e.target.value
+            [field]: e.target.value
           }
-        })),
+        }));
+      },
 
-      setComment: e =>
-        set(state => ({
+      resetFormState: () => {
+        set(() => ({
           formState: {
-            ...state.formState,
-            comment: e.target.value
+            title: '',
+            comment: '',
+            assignee: '',
+            status: ''
           }
-        })),
-
-      setAssignee: e =>
-        set(state => ({
-          formState: {
-            ...state.formState,
-            assignee: e.target.value
-          }
-        })),
+        }));
+      },
 
       addTodo: () => {
         const todo = {
@@ -55,20 +51,24 @@ export const useStore = create(
 
         set(() => ({
           todos: [...get().todos, todo],
-          formState: {
-            title: '',
-            comment: '',
-            assignee: '',
-            status: ''
-          },
           isModalOpen: false
         }));
+
+        get().resetFormState();
       },
 
       deleteTodo: id => {
         set(state => ({
           todos: state.todos.filter(todo => todo.id !== id)
         }));
+      },
+
+      handleClickAdd: () => {
+        set(() => ({
+          isModalOpen: true
+        }));
+
+        get().resetFormState();
       },
 
       handleClickEdit: todoId => {
@@ -100,14 +100,10 @@ export const useStore = create(
               ...todo,
               ...state.formState
             };
-          }),
-          formState: {
-            title: '',
-            comment: '',
-            assignee: '',
-            status: ''
-          }
+          })
         }));
+
+        get().resetFormState();
       },
 
       setStatus: (id, value) => {

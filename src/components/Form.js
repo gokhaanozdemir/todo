@@ -29,6 +29,7 @@ function Form() {
 
   return (
     <Modal
+      className="noop"
       style={{
         content: {
           width: '100%',

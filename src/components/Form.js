@@ -13,8 +13,8 @@ import {
 import { Container } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { useStore } from '../useStore';
 import { TodoAssigneeList, TodoStatus } from '../constants';
+import { useStore } from '../stores';
 
 Modal.setAppElement('#root');
 

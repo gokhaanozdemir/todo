@@ -5,7 +5,7 @@ import { Box, Container } from '@mui/system';
 
 import Searchbox from './Searchbox';
 import TodoItem from './TodoItem';
-import { useStore } from '../useStore';
+import { useStore } from '../stores';
 
 function TodoList() {
   const todos = useStore(state => state.todos);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Divider, Stack, Typography, Snackbar } from '@mui/material';
+import { Button, Divider, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { TodoStatus } from '../constants';
 import { useStore } from '../stores';
 
-function TodoItem({ title, comment, assignee, status, id }) {
+function TodoItem({ title, comment, status, id }) {
   const deleteTodo = useStore(state => state.deleteTodo);
   const handleClickEdit = useStore(state => state.handleClickEdit);
 

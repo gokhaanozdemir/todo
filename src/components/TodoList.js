@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Button, Typography } from '@mui/material';
+import { Button, IconButton, Typography } from '@mui/material';
 import { Box, Container } from '@mui/system';
+import AddIcon from '@mui/icons-material/Add';
 
 import Searchbox from './Searchbox';
 import TodoItem from './TodoItem';
@@ -42,16 +43,32 @@ function TodoList() {
                 return <TodoItem {...todo} key={todo.id} />;
               })
             ) : (
-              <Typography>No results</Typography>
+              <Typography
+                variant="h5"
+                color="red"
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  transform: 'translateY(-50%)'
+                }}
+              >
+                Sonuç yok!
+              </Typography>
             )}
           </Box>
-          <Button
-            variant="contained"
-            sx={{ position: 'absolute', right: '30px', bottom: '30px' }}
+          <IconButton
+            size="large"
+            color="info"
             onClick={handleClickAdd}
+            sx={{
+              position: 'absolute',
+              right: '30px',
+              top: '50%',
+              transform: 'translateY(-50%)'
+            }}
           >
-            Add todo
-          </Button>
+            <AddIcon />
+          </IconButton>
         </>
       ) : (
         <Box
@@ -74,7 +91,7 @@ function TodoList() {
             Henüz yapılacak iş yok!
           </Typography>
           <Button variant="contained" onClick={handleClickAdd}>
-            Todo ekle
+            Başla
           </Button>
         </Box>
       )}

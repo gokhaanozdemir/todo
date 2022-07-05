@@ -66,7 +66,7 @@ function Form() {
             sx={{
               marginBottom: '16px'
             }}
-            placeholder="Biraz daha detaylandir"
+            placeholder="Biraz daha detaylandır"
             value={formState.comment}
             onChange={e => setFormState(e, 'comment')}
           />

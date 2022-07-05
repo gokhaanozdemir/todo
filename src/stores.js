@@ -43,10 +43,10 @@ export const useStore = create(
 
       addTodo: () => {
         const todo = {
-          ...get().formState,
           id: Math.random(),
           createdAt: new Date(),
-          status: TodoStatus.New.value
+          status: TodoStatus.New.value,
+          ...get().formState
         };
 
         set(() => ({
@@ -65,7 +65,8 @@ export const useStore = create(
 
       handleClickAdd: () => {
         set(() => ({
-          isModalOpen: true
+          isModalOpen: true,
+          editTodoId: null
         }));
 
         get().resetFormState();

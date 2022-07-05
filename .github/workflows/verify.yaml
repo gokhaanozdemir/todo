@@ -1,0 +1,14 @@
+name: verify
+on: [pull_request]
+jobs:
+  verify:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Verify
+        run: yarn verify

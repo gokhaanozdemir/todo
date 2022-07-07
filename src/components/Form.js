@@ -1,9 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import Modal from 'react-modal';
+import { useForm, Controller } from 'react-hook-form';
 import {
   Box,
   Button,
-  FormControl,
+  FormGroup,
   FormLabel,
   IconButton,
   MenuItem,
@@ -24,8 +25,42 @@ function Form() {
   const isModalOpen = useStore(state => state.isModalOpen);
   const updateTodo = useStore(state => state.updateTodo);
   const editTodoId = useStore(state => state.editTodoId);
-  const formState = useStore(state => state.formState);
-  const setFormState = useStore(state => state.setFormState);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm({
+    defaultValues: {
+      title: '',
+      comment: '',
+      assignee: '',
+      status: ''
+    }
+  });
+
+  React.useEffect(() => {
+    if (editTodoId) {
+      const todo = useStore.getState().todos.find(todo => todo.id === editTodoId);
+
+      reset(todo);
+    } else {
+      reset({
+        title: '',
+        comment: '',
+        assignee: '',
+        status: ''
+      });
+    }
+  }, [editTodoId, reset]);
+
+  const onSubmit = data => {
+    if (editTodoId) {
+      updateTodo(data);
+    } else {
+      addTodo(data);
+    }
+  };
 
   return (
     <Modal
@@ -47,82 +82,106 @@ function Form() {
       >
         <CloseIcon />
       </IconButton>
+
       <Container sx={{ maxWidth: '80%', paddingTop: 2 }}>
-        <FormControl fullWidth>
+        <FormGroup fullwidth="true">
           <FormLabel htmlFor="title">Title</FormLabel>
-          <TextField
-            id="title"
-            sx={{
-              marginBottom: '16px'
-            }}
-            placeholder="Ne yapılması gerekiyor?"
-            value={formState.title}
-            onChange={e => setFormState(e, 'title')}
+          <Controller
+            name="title"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                id="title"
+                sx={{
+                  marginBottom: '16px'
+                }}
+                error={!!errors.title}
+                placeholder="Ne yapılması gerekiyor?"
+                {...field}
+              />
+            )}
           />
 
           <FormLabel htmlFor="comment">Comment</FormLabel>
-          <TextField
-            id="comment"
-            sx={{
-              marginBottom: '16px'
-            }}
-            placeholder="Biraz daha detaylandır"
-            value={formState.comment}
-            onChange={e => setFormState(e, 'comment')}
+          <Controller
+            name="comment"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                id="comment"
+                sx={{
+                  marginBottom: '16px'
+                }}
+                error={!!errors.comment}
+                placeholder="Biraz daha detaylandır"
+                {...field}
+              />
+            )}
           />
-
           <FormLabel id="assignee-label" htmlFor="assignee">
             Assignee
           </FormLabel>
-          <Select
-            labelId="assignee-label"
-            id="assignee"
-            value={formState.assignee}
-            onChange={e => setFormState(e, 'assignee')}
-            sx={{
-              marginBottom: '16px'
-            }}
-          >
-            <MenuItem value="" disabled hidden>
-              Lütfen seçiniz
-            </MenuItem>
-            {Object.values(TodoAssigneeList).map(i => {
-              return (
-                <MenuItem key={i.id} value={i.id}>
-                  {i.name}
+          <Controller
+            name="assignee"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Select
+                id="assignee"
+                labelId="assignee-label"
+                error={!!errors.assignee}
+                sx={{
+                  marginBottom: '16px'
+                }}
+                {...field}
+              >
+                <MenuItem value="" disabled hidden>
+                  Lütfen seçiniz
                 </MenuItem>
-              );
-            })}
-          </Select>
+                {Object.values(TodoAssigneeList).map(i => {
+                  return (
+                    <MenuItem key={i.id} value={i.id}>
+                      {i.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            )}
+          />
 
           <FormLabel id="status-label" htmlFor="status">
             Status
           </FormLabel>
-          <Select
-            labelId="status-label"
-            id="status"
-            value={formState.status}
-            onChange={e => setFormState(e, 'status')}
-            sx={{
-              marginBottom: '16px'
-            }}
-          >
-            {Object.values(TodoStatus).map(s => {
-              return (
-                <MenuItem key={s.value} value={s.value}>
-                  {s.label}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
+          <Controller
+            name="status"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Select
+                {...field}
+                labelId="status-label"
+                id="status"
+                sx={{
+                  marginBottom: '16px'
+                }}
+                error={!!errors.status}
+              >
+                {Object.values(TodoStatus).map(s => {
+                  return (
+                    <MenuItem key={s.value} value={s.value}>
+                      {s.label}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            )}
+          />
+        </FormGroup>
 
         <Box textAlign="center">
-          <Button
-            size="large"
-            variant="contained"
-            onClick={editTodoId ? updateTodo : addTodo}
-          >
+          <Button size="large" variant="contained" onClick={handleSubmit(onSubmit)}>
             {editTodoId ? 'Kaydet' : 'Ekle'}
           </Button>
         </Box>

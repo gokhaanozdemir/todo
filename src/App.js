@@ -1,15 +1,14 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import TodoList from './components/TodoList';
-import Form from './components/Form';
-import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <>
-      <Form />
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<TodoList />} />
       </Routes>
-    </>
+    </BrowserRouter>
   );
 }
 

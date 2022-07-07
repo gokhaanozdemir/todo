@@ -6,11 +6,6 @@ import { TodoStatus } from './constants';
 export const useStore = create(
   persist(
     (set, get) => ({
-      formState: {
-        title: '',
-        comment: '',
-        assignee: ''
-      },
       todos: [],
       isModalOpen: false,
       editTodoId: null,
@@ -21,40 +16,18 @@ export const useStore = create(
         }));
       },
 
-      setFormState: (e, field) => {
-        set(state => ({
-          formState: {
-            ...state.formState,
-            [field]: e.target.value
-          }
-        }));
-      },
-
-      resetFormState: () => {
-        set(() => ({
-          formState: {
-            title: '',
-            comment: '',
-            assignee: '',
-            status: ''
-          }
-        }));
-      },
-
-      addTodo: () => {
+      addTodo: data => {
         const todo = {
           id: Math.random(),
           createdAt: new Date(),
           status: TodoStatus.New.value,
-          ...get().formState
+          ...data
         };
 
         set(() => ({
           todos: [...get().todos, todo],
           isModalOpen: false
         }));
-
-        get().resetFormState();
       },
 
       deleteTodo: id => {
@@ -68,27 +41,16 @@ export const useStore = create(
           isModalOpen: true,
           editTodoId: null
         }));
-
-        get().resetFormState();
       },
 
       handleClickEdit: todoId => {
-        const todo = get().todos.find(todo => todo.id === todoId);
-
-        set(state => ({
+        set(() => ({
           isModalOpen: true,
-          editTodoId: todoId,
-          formState: {
-            ...state.formState,
-            title: todo.title,
-            comment: todo.comment,
-            assignee: todo.assignee,
-            status: todo.status
-          }
+          editTodoId: todoId
         }));
       },
 
-      updateTodo: () => {
+      updateTodo: data => {
         set(state => ({
           isModalOpen: false,
           editTodoId: null,
@@ -99,12 +61,10 @@ export const useStore = create(
 
             return {
               ...todo,
-              ...state.formState
+              ...data
             };
           })
         }));
-
-        get().resetFormState();
       },
 
       setStatus: (id, value) => {

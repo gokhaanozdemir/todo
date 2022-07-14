@@ -19,24 +19,27 @@ import { useStore } from '../stores';
 
 Modal.setAppElement('#root');
 
+const formFieldDefaultValues = {
+  title: '',
+  comment: '',
+  assignee: '',
+  status: ''
+};
+
 function Form() {
   const addTodo = useStore(state => state.addTodo);
   const toggleModal = useStore(state => state.toggleModal);
   const isModalOpen = useStore(state => state.isModalOpen);
   const updateTodo = useStore(state => state.updateTodo);
   const editTodoId = useStore(state => state.editTodoId);
+
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset
   } = useForm({
-    defaultValues: {
-      title: '',
-      comment: '',
-      assignee: '',
-      status: ''
-    }
+    defaultValues: formFieldDefaultValues
   });
 
   React.useEffect(() => {
@@ -44,21 +47,16 @@ function Form() {
       const todo = useStore.getState().todos.find(todo => todo.id === editTodoId);
 
       reset(todo);
-    } else {
-      reset({
-        title: '',
-        comment: '',
-        assignee: '',
-        status: ''
-      });
     }
   }, [editTodoId, reset]);
 
   const onSubmit = data => {
     if (editTodoId) {
       updateTodo(data);
+      reset(formFieldDefaultValues);
     } else {
       addTodo(data);
+      reset(formFieldDefaultValues);
     }
   };
 
